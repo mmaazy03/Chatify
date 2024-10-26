@@ -1,0 +1,34 @@
+{
+  "name": "react-native-chatify-2",
+  "version": "0.0.123",
+  "description": "React native chat easy to use and integrate",
+  "main": "src/Chatify/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "react": "18.2.0",
+    "react-native": "0.72.3",
+    "react-native-size-matters": "^0.4.0",
+    "react-native-vector-icons": "9.2.0"
+  },
+  "keywords": [
+    "react-native",
+    "floating-action-button",
+    "social",
+    "expo",
+    "mobile",
+    "ios",
+    "android",
+    "web",
+    "chat"
+  ],
+  "author": {
+    "name": "Maazy",
+    "email": "mmaazy03@gmail.com"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "metro-react-native-babel-preset": "^0.77.0"
+  }
+}

@@ -1,0 +1,4 @@
+# Exclude development files
+.git
+.vscode
+node_modules
