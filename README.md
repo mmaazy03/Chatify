@@ -34,7 +34,7 @@ $ yarn add react-native-chatify
 ```javascript
 import Chatify from "react-native-chatify";
 
-const MyComponent: React.FC = () => {
+const MyComponent = () => {
   const [text, setText] = useState("");
   const [messages, setMessages] = useState([
     {

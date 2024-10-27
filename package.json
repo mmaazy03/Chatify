@@ -1,6 +1,6 @@
 {
   "name": "react-native-chatify",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "React native chat easy to use and integrate",
   "main": "src/Chatify/index.js",
   "scripts": {
@@ -22,7 +22,15 @@
     "android",
     "web",
     "chat",
-    "fy"
+    "fy",
+    "ui",
+    "design",
+    "messaging",
+    "real-time",
+    "messages",
+    "customizable",
+    "responsive",
+    "chat-app"
   ],
   "author": {
     "name": "Maazy",
