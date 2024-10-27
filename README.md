@@ -10,36 +10,6 @@
 This project requires NodeJS (version 8 or later) and NPM.
 [Node](http://nodejs.org/) and [NPM](https://npmjs.org/) are really easy to install.
 To make sure you have them available on your machine,
-try running the following command.
-
-```sh
-$ npm -v && node -v
-6.4.1
-v8.16.0
-```
-
-## Table of contents
-
-- [Project Name](#project-name)
-  - [Prerequisites](#prerequisites)
-  - [Table of contents](#table-of-contents)
-  - [Getting Started](#getting-started)
-  - [Installation](#installation)
-  - [Usage](#usage)
-    - [Serving the app](#serving-the-app)
-    - [Running the tests](#running-the-tests)
-    - [Building a distribution version](#building-a-distribution-version)
-    - [Serving the distribution version](#serving-the-distribution-version)
-  - [API](#api)
-    - [useBasicFetch](#usebasicfetch)
-      - [Options](#options)
-    - [fetchData](#fetchdata)
-  - [Contributing](#contributing)
-  - [Credits](#credits)
-  - [Built With](#built-with)
-  - [Versioning](#versioning)
-  - [Authors](#authors)
-  - [License](#license)
 
 ## Getting Started
 
@@ -47,229 +17,110 @@ These instructions will get you a copy of the project up and running on your loc
 
 ## Installation
 
-**BEFORE YOU INSTALL:** please read the [prerequisites](#prerequisites)
-
-Start with cloning this repo on your local machine:
-
-```sh
-$ git clone https://github.com/ORG/PROJECT.git
-$ cd PROJECT
-```
-
 To install and set up the library, run:
 
 ```sh
-$ npm install -S myLib
+$ npm install react-native-chatify
 ```
 
 Or if you prefer using Yarn:
 
 ```sh
-$ yarn add --dev myLib
+$ yarn add react-native-chatify
 ```
 
-## Usage
+## Example
 
-### Serving the app
-
-```sh
-$ npm start
-```
-
-### Running the tests
-
-```sh
-$ npm test
-```
-
-### Building a distribution version
-
-```sh
-$ npm run build
-```
-
-This task will create a distribution version of the project
-inside your local `dist/` folder
-
-### Serving the distribution version
-
-```sh
-$ npm run serve:dist
-```
-
-This will use `lite-server` for servign your already
-generated distribution version of the project.
-
-_Note_ this requires
-[Building a distribution version](#building-a-distribution-version) first.
-
-## API
-
-### useBasicFetch
-
-```js
-useBasicFetch(((url: string) = ""), ((delay: number) = 0));
-```
-
-Supported options and result fields for the `useBasicFetch` hook are listed below.
-
-#### Options
-
-`url`
-
-| Type   | Default value |
-| ------ | ------------- |
-| string | ''            |
-
-If present, the request will be performed as soon as the component is mounted
-
-Example:
-
-```tsx
-const MyComponent: React.FC = () => {
-  const { data, error, loading } = useBasicFetch(
-    "https://api.icndb.com/jokes/random"
-  );
-
-  if (error) {
-    return <p>Error</p>;
-  }
-
-  if (loading) {
-    return <p>Loading...</p>;
-  }
-
-  return (
-    <div className="App">
-      <h2>Chuck Norris Joke of the day</h2>
-      {data && data.value && <p>{data.value.joke}</p>}
-    </div>
-  );
-};
-```
-
-`delay`
-
-| Type   | Default value | Description          |
-| ------ | ------------- | -------------------- |
-| number | 0             | Time in milliseconds |
-
-If present, the request will be delayed by the given amount of time
-
-Example:
-
-```tsx
-type Joke = {
-  value: {
-    id: number;
-    joke: string;
-  };
-};
+```javascript
+import Chatify from "react-native-chatify-2";
 
 const MyComponent: React.FC = () => {
-  const { data, error, loading } = useBasicFetch<Joke>(
-    "https://api.icndb.com/jokes/random",
-    2000
-  );
+  const [text, setText] = useState("");
+  const [messages, setMessages] = useState([
+    {
+      _id: 1,
+      user: { id: "123", name: "Test User 1" },
+      text: "Test1",
+      direction: "InBound",
+    },
+    {
+      _id: 2,
+      user: { id: "123", name: "Test User 2" },
+      text: "Test2",
+      direction: "OutBound",
+    },
+  ]);
 
-  if (error) {
-    return <p>Error</p>;
-  }
-
-  if (loading) {
-    return <p>Loading...</p>;
-  }
-
-  return (
-    <div className="App">
-      <h2>Chuck Norris Joke of the day</h2>
-      {data && data.value && <p>{data.value.joke}</p>}
-    </div>
-  );
-};
-```
-
-### fetchData
-
-```js
-fetchData(url: string)
-```
-
-Perform an asynchronous http request against a given url
-
-```tsx
-type Joke = {
-  value: {
-    id: number;
-    joke: string;
+  const onChange = (data) => {
+    setText(data);
   };
-};
 
-const ChuckNorrisJokes: React.FC = () => {
-  const { data, fetchData, error, loading } = useBasicFetch<Joke>();
-  const [jokeId, setJokeId] = useState(1);
-
-  useEffect(() => {
-    fetchData(`https://api.icndb.com/jokes/${jokeId}`);
-  }, [jokeId, fetchData]);
-
-  const handleNext = () => setJokeId(jokeId + 1);
-
-  if (error) {
-    return <p>Error</p>;
-  }
-
-  const jokeData = data && data.value;
+  const sendChat = () => {
+    const message = {
+      text: text,
+      user: {
+        id: "456",
+        name: "Test User 2",
+      },
+      direction: "OutBound",
+    };
+    setMessages((prevState) => [...prevState, message]);
+  };
 
   return (
-    <div className="Comments">
-      {loading && <p>Loading...</p>}
-      {!loading && jokeData && (
-        <div>
-          <p>Joke ID: {jokeData.id}</p>
-          <p>{jokeData.joke}</p>
-        </div>
-      )}
-      {!loading && jokeData && !jokeData.joke && <p>{jokeData}</p>}
-      <button disabled={loading} onClick={handleNext}>
-        Next Joke
-      </button>
-    </div>
+    <Chatify
+      data={messages}
+      text={text}
+      title="Test User"
+      onSend={sendChat}
+      onTextChange={onChange}
+      theme={chatThemeConfig}
+    />
   );
 };
 ```
 
-## Contributing
+## Props
 
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+| Prop            | Type       | Description                                                                                                                                                   | Default |
+| --------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| `data`          | `Array`    | An array of message objects. Each message should include `_id`, `text`, `createdAt`, and `user` object along with `direction` either "InBound" or "OutBound". | `[]`    |
+| `text`          | `string`   | Input field value                                                                                                                                             | -       |
+| `text`          | `Function` | A callback function for sending new messages. This function should update the `messages` state.                                                               | `-`     |
+| `onTextChange`  | `Function` | A callback function that returns the text input value entered                                                                                                 | `-`     |
+| `theme`         | `Object `  | A theme object which takes the custom styling option for headers, input field, footer                                                                         | `{}`    |
+| `onTextChange`  | `Function` | A callback function that returns the text input value entered                                                                                                 | `-`     |
+| `_renderHeader` | `Function` | A callback function that receives your custom header component, allowing you to replace the default header with your own design.                              | `-`     |
+| `_renderFooter` | `Function` | A callback function that receives your custom footer component, allowing you to replace the default footer with your own design..                             | `-`     |
 
-1.  Fork it!
-2.  Create your feature branch: `git checkout -b my-new-feature`
-3.  Add your changes: `git add .`
-4.  Commit your changes: `git commit -am 'Add some feature'`
-5.  Push to the branch: `git push origin my-new-feature`
-6.  Submit a pull request :sunglasses:
+### theme
 
-## Credits
+```
+const chatThemeConfig = {
+  avoidingView: {}, // Customize properties for keyboard avoiding view
+  header: {
+    backgroundColor: "red", // Styles for header
+    headerImage: {},       // Styles for the header image
+    headerIcon: {},        // Styles for icons within the header
+    headerIconLayout: {},  // Layout styles for icon arrangement in the header
+    headerTitle: {},       // Styles for the header title text
+  },
+  row: {
+    marginTop: 20,         // Set margin for rows within the chat layout
+  },
+  footer: {
+    inputField: {},        // Customize the input field styles in the footer
+    footerIconLayout: {},  // Layout for icons in the footer
+    footerIcon: {},        // Styles for individual icons in the footer
+  },
+};
 
-TODO: Write credits
-
-## Built With
-
-- Dropwizard - Bla bla bla
-- Maven - Maybe
-- Atom - ergaerga
-- Love
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags).
+```
 
 ## Authors
 
-- **John Doe** - _Initial work_ - [JohnDoe](https://github.com/JohnDoe)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+- **Maaz** - _Initial work_ - [Maazy](https://github.com/mmaazy03)
+- **Maaz** - _Portfolio_ - [Maazy](https://portfolio-henna-one-63.vercel.app/)
 
 ## License
 
