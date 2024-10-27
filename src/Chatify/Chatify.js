@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View } from "react-native";
 import Chatify from "./Chatify";
-import { DefaultUserAvatar } from "./Chatify/assets";
+import { DefaultUserAvatar } from "../assets";
 
 function ChatScreenTest() {
   const [text, setText] = useState("");
