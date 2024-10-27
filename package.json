@@ -1,6 +1,6 @@
 {
-  "name": "react-native-chatify-2",
-  "version": "0.0.131",
+  "name": "react-native-chatify",
+  "version": "0.0.1",
   "description": "React native chat easy to use and integrate",
   "main": "src/Chatify/index.js",
   "scripts": {
@@ -14,15 +14,15 @@
     "react-dom": "18.2.0"
   },
   "keywords": [
+    "react",
     "react-native",
-    "floating-action-button",
-    "social",
     "expo",
     "mobile",
     "ios",
     "android",
     "web",
-    "chat"
+    "chat",
+    "fy"
   ],
   "author": {
     "name": "Maazy",

@@ -1,13 +1,13 @@
-import React, {useState, useRef} from 'react';
-import {View, StyleSheet, TouchableOpacity, TextInput} from 'react-native';
-import R from '../../theme/R';
-import Icon from '../Icon';
+import React, { useState, useRef } from "react";
+import { View, StyleSheet, TouchableOpacity, TextInput } from "react-native";
+import R from "../../theme/R";
+import Icon from "../Icon";
 
-const ChatFooter = ({onChange, sendChat, inputStyle, theme}) => {
+const ChatFooter = ({ onChange, sendChat, inputStyle, theme }) => {
   const inputRef = useRef();
-  const [text, setText] = useState('');
+  const [text, setText] = useState("");
 
-  const onChangeText = value => {
+  const onChangeText = (value) => {
     setText(value);
     onChange && onChange(value);
   };
@@ -17,7 +17,7 @@ const ChatFooter = ({onChange, sendChat, inputStyle, theme}) => {
       inputRef?.current?.clear();
     }
     sendChat && sendChat();
-    setText('');
+    setText("");
   };
 
   return (
@@ -32,10 +32,11 @@ const ChatFooter = ({onChange, sendChat, inputStyle, theme}) => {
         onPress={sendPress}
         activeOpacity={0.8}
         style={theme?.footer?.footerIconLayout}
-        disabled={text.length === 0 ? true : false}>
+        disabled={text.length === 0 ? true : false}
+      >
         <Icon
-          type={'MaterialCommunityIcons'}
-          name={'send'}
+          type={"MaterialCommunityIcons"}
+          name={"send"}
           size={30}
           color={R.color.black}
           customStyles={theme?.footer?.footerIcon}
@@ -49,12 +50,12 @@ export default ChatFooter;
 
 const styles = StyleSheet.create({
   inputFieldLayout: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    backgroundColor: 'green',
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
+    backgroundColor: R.color.white,
     paddingHorizontal: R.unit.scale(12),
     paddingTop: R.unit.scale(5),
     marginBottom: R.unit.scale(10),
