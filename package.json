@@ -1,6 +1,6 @@
 {
   "name": "react-native-chatify",
-  "version": "0.0.132",
+  "version": "0.0.11",
   "description": "React native chat easy to use and integrate",
   "main": "src/Chatify/index.js",
   "scripts": {

@@ -32,7 +32,7 @@ $ yarn add react-native-chatify
 ## Example
 
 ```javascript
-import Chatify from "react-native-chatify-2";
+import Chatify from "react-native-chatify";
 
 const MyComponent: React.FC = () => {
   const [text, setText] = useState("");
