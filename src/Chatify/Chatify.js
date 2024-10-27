@@ -6,10 +6,10 @@ import {
   Platform,
   FlatList,
 } from "react-native";
-import R from "./theme/R";
-import ChatHeader from "./components/ChatHeader";
-import ChatFooter from "./components/ChatFooter";
-import ChatBox from "./components/ChatBox";
+import R from "../theme/R";
+import ChatHeader from "../components/ChatHeader";
+import ChatFooter from "../components/ChatFooter";
+import ChatBox from "../components/ChatBox";
 
 const Chatify = ({
   title,
