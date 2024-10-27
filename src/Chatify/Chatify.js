@@ -1,74 +1,110 @@
-import React, { useState } from "react";
-import { View } from "react-native";
-import Chatify from "./Chatify";
-import { DefaultUserAvatar } from "../assets";
+import React, { useRef } from "react";
+import {
+  StyleSheet,
+  KeyboardAvoidingView,
+  ScrollView,
+  Platform,
+  FlatList,
+} from "react-native";
+import R from "./theme/R";
+import ChatHeader from "./components/ChatHeader";
+import ChatFooter from "./components/ChatFooter";
+import ChatBox from "./components/ChatBox";
 
-function ChatScreenTest() {
-  const [text, setText] = useState("");
-  const [messages, setMessages] = useState([
-    {
-      _id: 1,
-      user: { id: "123", name: "Maaz", photo: DefaultUserAvatar },
-      text: "Metro boomin",
-      direction: "InBound",
-    },
-    {
-      _id: 2,
-      user: { id: "123", name: "Opp", photo: DefaultUserAvatar },
-      text: "21 savage",
-      direction: "InBound",
-    },
-  ]);
+const Chatify = ({
+  title,
+  data,
+  text,
+  placeholderText,
+  keyboardVerticalOffset = 120,
+  onSend,
+  onTextChange,
+  containerStyles,
+  contentContainerStyles,
+  theme,
+  _renderHeader,
+  _renderFooter,
+}) => {
+  const flatListRef = useRef();
 
-  const onChange = (data) => {
-    setText(data);
+  const _renderChatRow = ({ item }) => {
+    return <ChatBox item={item} theme={theme} />;
   };
 
-  const sendChat = () => {
-    const message = {
-      text: text,
-      user: {
-        id: "456",
-        name: "poppin",
-        photo: DefaultUserAvatar,
-      },
-      direction: "OutBound",
-    };
-    setMessages((prevState) => [...prevState, message]);
+  const _renderChatHeader = () => {
+    if (_renderHeader) {
+      return _renderHeader();
+    } else {
+      return <ChatHeader name={title} theme={theme} />;
+    }
   };
 
-  const chatThemeConfig = {
-    avoidingView: {},
-    header: {
-      columnGap: 10,
-      headerImage: {},
-      headerIcon: {},
-      headerIconLayout: {},
-      headerTitle: {},
-    },
-    row: {
-      marginTop: 20,
-    },
-    footer: {
-      inputField: {},
-      footerIconLayout: {},
-      footerIcon: {},
-    },
-  };
-
-  const _renderHeader = () => {
-    return <View style={{ backgroundColor: "red", padding: 20 }}></View>;
+  const _renderChatFooter = () => {
+    if (_renderFooter) {
+      return _renderFooter();
+    } else {
+      return (
+        <ChatFooter
+          theme={theme}
+          text={text}
+          placeholderText={placeholderText}
+          onChange={(data) => {
+            onTextChange(data);
+          }}
+          sendChat={onSend}
+        />
+      );
+    }
   };
 
   return (
-    <Chatify
-      data={messages}
-      text={text}
-      title="Maazy"
-      onSend={sendChat}
-      onTextChange={onChange}
-      theme={chatThemeConfig}
-    />
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "height" : undefined}
+      keyboardVerticalOffset={keyboardVerticalOffset}
+      style={[styles.avoidingView, theme?.avoidingView]}
+    >
+      <ScrollView contentContainerStyle={styles.scrollViewWrapper}>
+        {_renderChatHeader()}
+        {data.length > 0 ? (
+          <FlatList
+            ref={flatListRef}
+            data={data || []}
+            style={[styles.flatListContainer, containerStyles]}
+            contentContainerStyle={[
+              styles.flatListContentContainer,
+              contentContainerStyles,
+            ]}
+            renderItem={_renderChatRow}
+            showsVerticalScrollIndicator={false}
+            fadingEdgeLength={12}
+            onContentSizeChange={() => flatListRef.current.scrollToEnd()}
+            onLayout={() => flatListRef.current.scrollToEnd()}
+          />
+        ) : null}
+      </ScrollView>
+      {_renderChatFooter()}
+    </KeyboardAvoidingView>
   );
-}
-export default ChatScreenTest;
+};
+export default Chatify;
+
+const styles = StyleSheet.create({
+  scrollViewWrapper: {
+    backgroundColor: R.color.white,
+    flex: 1,
+  },
+  avoidingView: {
+    flex: 1,
+  },
+  flatListContainer: {
+    paddingTop: R.unit.scale(10),
+    height: R.unit.height(0.8),
+    flexGrow: 0,
+  },
+  flatListContentContainer: {
+    justifyContent: "flex-start",
+    flexGrow: 1,
+    paddingHorizontal: R.unit.scale(5),
+    paddingBottom: R.unit.scale(40),
+  },
+});
