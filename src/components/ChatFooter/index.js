@@ -1,13 +1,13 @@
-import React, { useState, useRef } from "react";
-import { View, StyleSheet, TouchableOpacity, TextInput } from "react-native";
-import R from "../../theme/R";
-import Icon from "../Icon";
+import React, {useState, useRef} from 'react';
+import {View, StyleSheet, TouchableOpacity, TextInput} from 'react-native';
+import R from '../../theme/R';
+import Icon from '../Icon';
 
-const ChatFooter = ({ onChange, sendChat, inputStyle }) => {
+const ChatFooter = ({onChange, sendChat, inputStyle, theme}) => {
   const inputRef = useRef();
-  const [text, setText] = useState("");
+  const [text, setText] = useState('');
 
-  const onChangeText = (value) => {
+  const onChangeText = value => {
     setText(value);
     onChange && onChange(value);
   };
@@ -17,11 +17,11 @@ const ChatFooter = ({ onChange, sendChat, inputStyle }) => {
       inputRef?.current?.clear();
     }
     sendChat && sendChat();
-    setText("");
+    setText('');
   };
 
   return (
-    <View style={[styles.inputFieldLayout, styles.inputTooBar]}>
+    <View style={[styles.inputFieldLayout, theme?.footer]}>
       <TextInput
         value={text}
         onChangeText={onChangeText}
@@ -31,13 +31,14 @@ const ChatFooter = ({ onChange, sendChat, inputStyle }) => {
       <TouchableOpacity
         onPress={sendPress}
         activeOpacity={0.8}
-        disabled={text.length === 0 ? true : false}
-      >
+        style={theme?.footer?.footerIconLayout}
+        disabled={text.length === 0 ? true : false}>
         <Icon
-          type={"MaterialCommunityIcons"}
-          name={"send"}
+          type={'MaterialCommunityIcons'}
+          name={'send'}
           size={30}
           color={R.color.black}
+          customStyles={theme?.footer?.footerIcon}
         />
       </TouchableOpacity>
     </View>
@@ -48,22 +49,15 @@ export default ChatFooter;
 
 const styles = StyleSheet.create({
   inputFieldLayout: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    width: "100%",
-  },
-  inputTooBar: {
-    backgroundColor: R.color.white,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    backgroundColor: 'green',
     paddingHorizontal: R.unit.scale(12),
     paddingTop: R.unit.scale(5),
-    marginBottom: R.unit.scale(20),
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
-    borderRadius: R.unit.scale(6),
+    marginBottom: R.unit.scale(10),
   },
   inputField: {
     height: 50,

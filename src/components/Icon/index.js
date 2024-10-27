@@ -1,13 +1,11 @@
-import React from "react";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import React from 'react';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const IconMap = {
   MaterialCommunityIcons,
 };
 
-// export type IconType = 'MaterialCommunityIcons';
-
-const Icon = ({ type = "FontAwesome", name, size, color, customStyles }) => {
+const Icon = ({type = 'FontAwesome', name, size, color, customStyles}) => {
   const IconComponent = IconMap[type];
 
   return (
