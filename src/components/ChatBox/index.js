@@ -1,11 +1,11 @@
-import React from 'react';
-import {View, StyleSheet, Platform, Image} from 'react-native';
-import R from '../../theme/R';
-import Text from '../Text';
-import {DefaultUserAvatar} from '../../assets';
+import React from "react";
+import { View, StyleSheet, Platform, Image } from "react-native";
+import { DefaultUserAvatar } from "../../assets";
+import R from "../../theme/R";
+import Text from "../Text";
 
-const ChatBox = ({item}) => {
-  const messageType = item?.direction === 'InBound' ? 'from' : 'to';
+const ChatBox = ({ item }) => {
+  const messageType = item?.direction === "InBound" ? "from" : "to";
 
   return (
     <View style={styles.formView}>
@@ -13,10 +13,11 @@ const ChatBox = ({item}) => {
         style={[
           styles.messageRow,
           {
-            justifyContent: messageType === 'to' ? 'flex-end' : 'flex-start',
+            justifyContent: messageType === "to" ? "flex-end" : "flex-start",
           },
-        ]}>
-        {messageType === 'from' && (
+        ]}
+      >
+        {messageType === "from" && (
           <Image source={DefaultUserAvatar} style={styles.userAvatar} />
         )}
 
@@ -25,40 +26,43 @@ const ChatBox = ({item}) => {
             styles.messageBox,
             {
               borderBottomRightRadius: R.unit.scale(
-                messageType === 'to' ? 0 : 10,
+                messageType === "to" ? 0 : 10
               ),
               borderBottomLeftRadius: R.unit.scale(
-                messageType === 'to' ? 10 : 0,
+                messageType === "to" ? 10 : 0
               ),
               backgroundColor:
-                messageType === 'to' ? R.color.primaryColor3 : R.color.black2,
-              marginLeft: R.unit.scale(messageType === 'to' ? 0 : 5),
-              marginRight: R.unit.scale(messageType === 'to' ? 5 : 0),
-              width: '50%',
+                messageType === "to" ? R.color.primaryColor3 : R.color.black2,
+              marginLeft: R.unit.scale(messageType === "to" ? 0 : 5),
+              marginRight: R.unit.scale(messageType === "to" ? 5 : 0),
+              width: "50%",
             },
-          ]}>
+          ]}
+        >
           <Text
-            variant={'body3'}
-            font={'PoppinsRegular'}
+            variant={"body3"}
+            font={"PoppinsRegular"}
             color={R.color.blackShade2}
-            align={messageType == 'to' ? 'left' : null}
-            transform={'none'}>
+            align={messageType == "to" ? "left" : null}
+            transform={"none"}
+          >
             {item?.text}
           </Text>
 
           {item.createdAt && (
             <Text
-              variant={'body5'}
-              font={'PoppinsRegular'}
+              variant={"body5"}
+              font={"PoppinsRegular"}
               color={R.color.blackShade2}
-              align={messageType == 'to' ? 'right' : 'left'}
-              transform={'none'}>
+              align={messageType == "to" ? "right" : "left"}
+              transform={"none"}
+            >
               {item.createdAt}
             </Text>
           )}
         </View>
 
-        {messageType === 'to' && (
+        {messageType === "to" && (
           <Image source={DefaultUserAvatar} style={styles.userAvatar} />
         )}
       </View>
@@ -71,7 +75,7 @@ const styles = StyleSheet.create({
   formView: {
     marginTop: R.unit.scale(10),
     paddingHorizontal: R.unit.scale(10),
-    width: '100%',
+    width: "100%",
   },
   userAvatar: {
     width: R.unit.scale(50),
@@ -83,7 +87,7 @@ const styles = StyleSheet.create({
   onlineStatus: {
     width: R.unit.scale(10),
     height: R.unit.scale(10),
-    position: 'absolute',
+    position: "absolute",
     right: 1,
     bottom: 0,
     borderRadius: R.unit.scale(20),
@@ -91,16 +95,16 @@ const styles = StyleSheet.create({
     borderColor: R.color.white,
   },
   messageRow: {
-    width: '100%',
-    flexDirection: 'row',
-    alignItems: 'stretch',
+    width: "100%",
+    flexDirection: "row",
+    alignItems: "stretch",
   },
   messageBox: {
     backgroundColor: R.color.primaryColor1,
     paddingHorizontal: R.unit.scale(16),
     borderTopRightRadius: R.unit.scale(10),
     borderTopLeftRadius: R.unit.scale(10),
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
     paddingVertical: R.unit.scale(2),
   },
   flatListContainer: {
@@ -109,14 +113,14 @@ const styles = StyleSheet.create({
     flexGrow: 0,
   },
   flatListContentContainer: {
-    justifyContent: 'flex-start',
+    justifyContent: "flex-start",
     flexGrow: 1,
     paddingHorizontal: R.unit.scale(5),
   },
   footerContainer: {
-    alignItems: 'flex-start',
-    justifyContent: 'flex-start',
-    flexDirection: 'row',
-    height: R.unit.height(Platform.OS === 'ios' ? 0.15 : 0.1),
+    alignItems: "flex-start",
+    justifyContent: "flex-start",
+    flexDirection: "row",
+    height: R.unit.height(Platform.OS === "ios" ? 0.15 : 0.1),
   },
 });
