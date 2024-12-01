@@ -1,9 +1,7 @@
-[![npm version](https://badge.fury.io/js/angular2-expandable-list.svg)](https://badge.fury.io/js/angular2-expandable-list)
-[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
 # React Native Chatify
 
-> Write a project description
+React Native Chatify is a lightweight and customizable chat UI library for React Native applications. It simplifies the process of building chat interfaces with reusable components and easy integration. 
 
 ## Prerequisites
 
@@ -124,4 +122,4 @@ const chatThemeConfig = {
 
 ## License
 
-[MIT License](https://andreasonny.mit-license.org/2019) © Andrea SonnY
+MIT License
